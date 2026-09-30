@@ -6,7 +6,8 @@ export default async function handler(req,res){
   if(req.method!=="POST") return res.status(405).json({error:"Method not allowed"});
 
   try{
-    const {messages=[]}=req.body||{};
+    const {messages=[],model}=req.body||{};
+    const requestedModel=typeof model==="string"&&model.trim()?model.trim():(process.env.POLLINATIONS_MODEL||"openai/gpt-5.4-nano");
     const key=process.env.POLLINATIONS_API_KEY;
 
     if(!key){
@@ -22,7 +23,7 @@ export default async function handler(req,res){
         "Content-Type":"application/json"
       },
       body:JSON.stringify({
-        model:process.env.POLLINATIONS_MODEL||"openai/gpt-5.4-nano",
+        model:requestedModel,
         messages:[
           {
             role:"system",
