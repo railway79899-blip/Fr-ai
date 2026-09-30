@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<title>登入 FR Account — FR AI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+<main class="auth-card">
+  <a class="auth-brand" href="index.html"><span>FR</span><strong>FR Account</strong></a>
+  <h1>登入 FR AI</h1>
+  <p class="auth-subtitle">登入你的 FR Account，繼續使用 FR AI。</p>
+  <form id="loginForm" class="auth-form">
+    <label>電子郵件或帳號<input id="account" autocomplete="username" required placeholder="輸入帳號"></label>
+    <label>密碼<input id="password" type="password" autocomplete="current-password" required placeholder="輸入密碼"></label>
+    <button type="submit" class="auth-submit">登入</button>
+  </form>
+  <div id="loginMessage" class="auth-message"></div>
+  <a class="back-link" href="index.html">← 返回 FR AI</a>
+</main>
+<script src="login.js"></script>
+</body>
+</html>
