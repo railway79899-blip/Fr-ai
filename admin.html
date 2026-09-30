@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FR Account · Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="admin-shell">
+  <section class="admin-card" id="loginCard">
+    <div class="brand">FR AI <span>Account</span></div>
+    <h1>管理員登入</h1>
+    <p>FR AI 管理中心</p>
+    <form id="loginForm">
+      <input id="username" autocomplete="username" placeholder="管理員帳號" required>
+      <input id="password" type="password" autocomplete="current-password" placeholder="密碼" required>
+      <button type="submit">登入管理後台</button>
+    </form>
+    <div id="loginMsg" class="admin-msg"></div>
+  </section>
+
+  <section class="admin-card hidden" id="panel">
+    <header class="admin-header">
+      <div><div class="brand">FR AI <span>Admin</span></div><h1>系統管理</h1></div>
+      <button id="logoutBtn" class="secondary">登出</button>
+    </header>
+
+    <div class="status-box">
+      <strong>管理員帳號</strong>
+      <span id="accountName">—</span>
+      <strong>API 狀態</strong>
+      <span id="apiStatus">讀取中…</span>
+    </div>
+
+    <form id="settingsForm">
+      <label>Pollinations API Key</label>
+      <input id="apiKey" type="password" autocomplete="off" placeholder="輸入新的 Secret Key；留空代表不修改">
+      <small>金鑰只會送到伺服器，不會寫入 GitHub。</small>
+
+      <label>AI Model</label>
+      <input id="model" placeholder="例如 openai/gpt-5.4-nano">
+
+      <button type="submit">儲存 API 設定</button>
+    </form>
+    <div id="saveMsg" class="admin-msg"></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+async function api(url,options={}){
+  const r=await fetch(url,{headers:{'Content-Type':'application/json'},...options});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(d.error||'Request failed');
+  return d;
+}
+async function load(){
+  try{
+    const d=await api('/api/admin-config');
+    $('loginCard').classList.add('hidden');
+    $('panel').classList.remove('hidden');
+    $('accountName').textContent=d.username||'Fradmin79899';
+    $('apiStatus').textContent=d.configured?'已設定':'尚未設定';
+    $('model').value=d.model||'openai/gpt-5.4-nano';
+  }catch(e){}
+}
+$('loginForm').addEventListener('submit',async e=>{
+  e.preventDefault(); $('loginMsg').textContent='登入中…';
+  try{await api('/api/admin-login',{method:'POST',body:JSON.stringify({username:$('username').value,password:$('password').value})}); $('password').value=''; await load();}
+  catch(e){$('loginMsg').textContent=e.message;}
+});
+$('settingsForm').addEventListener('submit',async e=>{
+  e.preventDefault(); $('saveMsg').textContent='儲存中…';
+  try{
+    const body={model:$('model').value};
+    if($('apiKey').value) body.apiKey=$('apiKey').value;
+    const d=await api('/api/admin-config',{method:'POST',body:JSON.stringify(body)});
+    $('apiKey').value=''; $('apiStatus').textContent=d.configured?'已設定':'尚未設定'; $('saveMsg').textContent='設定已送出。';
+  }catch(e){$('saveMsg').textContent=e.message;}
+});
+$('logoutBtn').onclick=async()=>{try{await api('/api/admin-logout',{method:'POST'})}finally{location.reload()}};
+load();
+</script>
+</body>
+</html>
