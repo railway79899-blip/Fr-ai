@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="FR AI — 人工智慧聊天助手">
+  <title>FR AI v1.0</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">FR</div><div><b>FR AI</b><span>v1.0</span></div></div>
+      <button class="new-chat" id="newChat">＋ 新增聊天</button>
+      <div class="side-title">聊天紀錄</div>
+      <div id="chatList" class="chat-list"></div>
+      <div class="side-bottom">
+        <button class="side-btn" id="clearChats">清除聊天紀錄</button>
+        <div class="status"><i></i> FR AI 系統就緒</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="menuBtn">☰</button>
+        <div class="model"><span class="pulse"></span><strong>FR AI</strong><small>人工智慧助手</small></div>
+        <button class="icon-btn" id="themeBtn" title="切換外觀">◐</button>
+      </header>
+
+      <section class="chat" id="chat">
+        <div class="welcome" id="welcome">
+          <div class="hero-logo">FR</div>
+          <h1>你好，我是 <span>FR AI</span></h1>
+          <p>你的人工智慧助手。可以問問題、寫程式、整理文字，或直接開始聊天。</p>
+          <div class="suggestions">
+            <button data-prompt="幫我介紹一下 FR AI">介紹 FR AI</button>
+            <button data-prompt="幫我寫一個 HTML 網頁">寫 HTML</button>
+            <button data-prompt="用繁體中文回答我">繁體中文</button>
+          </div>
+        </div>
+        <div id="messages" class="messages"></div>
+      </section>
+
+      <footer class="composer-wrap">
+        <div class="composer">
+          <textarea id="input" rows="1" placeholder="輸入訊息給 FR AI…" autocomplete="off"></textarea>
+          <button class="send" id="send" aria-label="送出">➤</button>
+        </div>
+        <div class="hint">Enter 送出 · Shift + Enter 換行 · FR AI v1.0</div>
+      </footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
