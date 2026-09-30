@@ -1,6 +1,6 @@
 # FR AI v1.0
 
-FR AI 是一個繁體中文優先的人工智慧聊天介面。
+FR AI 是一個繁體中文優先的人工智慧聊天介面，現在可接入 Pollinations AI。
 
 ## v1.0 功能
 - ChatGPT 風格聊天 UI
@@ -9,22 +9,38 @@ FR AI 是一個繁體中文優先的人工智慧聊天介面。
 - localStorage 儲存聊天
 - 手機 / iPad / 桌面響應式
 - Enter 送出、Shift+Enter 換行
-- Demo 模式
-- Serverless AI API 介面
+- Demo 模式（API 未設定時）
+- Pollinations AI Serverless API
 - API Key 不放在前端
 
+## Pollinations AI 設定
+
+Pollinations 提供 OpenAI-compatible Chat Completions API。
+
+請先在 Pollinations Dashboard 建立或取得 API Key：
+https://enter.pollinations.ai/keys
+
+部署 `api/chat.js` 的平台請設定環境變數：
+
+```
+POLLINATIONS_API_KEY=你的sk_金鑰
+POLLINATIONS_MODEL=openai/gpt-5.4-nano
+```
+
+API Key **不要**貼進 `index.html`、`app.js` 或公開 GitHub 程式碼。
+
+FR AI 後端會呼叫：
+
+```
+https://gen.pollinations.ai/v1/chat/completions
+```
+
 ## 使用
-直接開啟 `index.html` 即可使用 Demo 模式。
 
-要接真正 AI，請將 `api/chat.js` 部署到支援 Serverless Functions 的平台，並設定：
+直接開啟 `index.html` 可以看到 FR AI 介面。
 
-```
-AI_API_KEY=你的API金鑰
-AI_MODEL=你的模型
-AI_API_URL=你的API端點
-```
-
-請勿把 API 金鑰直接寫進 `app.js` 或 `index.html`。
+若要使用真正 AI 回覆，請把專案部署到支援 Serverless Functions 的平台，並設定上面的環境變數。
 
 ## 專案
+
 FR AI v1.0 · railway79899-blip/Fr-ai
