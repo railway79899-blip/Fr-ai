@@ -1,0 +1,1 @@
+{"name":"fr-ai","version":"1.0.0","private":true,"description":"FR AI v1.0 artificial intelligence chat","type":"module","scripts":{"start":"vercel dev"},"engines":{"node":">=18"}}
