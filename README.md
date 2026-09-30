@@ -61,3 +61,24 @@ FR AI v1.0 · railway79899-blip/Fr-ai
 先前貼出的 Secret Key 應視為已曝光，請在 Pollinations 後台撤銷並重新建立新的 Key。新的 Key 只放 Vercel Environment Variables，不要提交到 GitHub。
 
 Vercel 部署需要環境變數才能使用真正的 Pollinations AI；沒有 Key 時，前端會回到 Demo 回覆模式。
+
+
+## FR Account 管理員後台
+
+管理後台入口：
+
+`/admin.html`
+
+預設管理員帳號名稱為 `Fradmin79899`。密碼不存放於 GitHub，請在 Vercel Environment Variables 設定：
+
+```
+ADMIN_USERNAME=Fradmin79899
+ADMIN_PASSWORD=你設定的管理員密碼
+ADMIN_SESSION_SECRET=一組長而隨機的秘密字串
+POLLINATIONS_API_KEY=你的 Pollinations Secret Key
+POLLINATIONS_MODEL=openai/gpt-5.4-nano
+```
+
+管理員登入後可以查看 API 設定狀態與模型設定。為了安全性，Secret Key 不會回傳到前端，也不會寫入 GitHub。
+
+> 注意：Vercel Serverless Function 本身不能把新的 Secret 永久寫回 Vercel Environment Variables。若要讓「管理後台直接修改並永久保存 API Key」，需要另外接 Vercel API / Secrets 管理權限，或使用受保護的資料庫／Secrets Manager；目前後台會安全拒絕把 Key 寫進原始碼。
