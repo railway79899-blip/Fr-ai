@@ -44,3 +44,20 @@ https://gen.pollinations.ai/v1/chat/completions
 ## 專案
 
 FR AI v1.0 · railway79899-blip/Fr-ai
+
+## Vercel 部署
+
+1. 在 Vercel 匯入此 GitHub repository。
+2. Framework Preset 選擇 **Other**（或讓 Vercel 自動偵測）。
+3. Build Command 留空。
+4. Output Directory 留空。
+5. 在 **Environment Variables** 加入：
+   - `POLLINATIONS_API_KEY` = 你在 Pollinations 建立的新 Secret Key
+   - `POLLINATIONS_MODEL` = `openai/gpt-5.4-nano`
+6. 部署後開啟網站，送出訊息測試。
+
+### 重要安全提醒
+
+先前貼出的 Secret Key 應視為已曝光，請在 Pollinations 後台撤銷並重新建立新的 Key。新的 Key 只放 Vercel Environment Variables，不要提交到 GitHub。
+
+Vercel 部署需要環境變數才能使用真正的 Pollinations AI；沒有 Key 時，前端會回到 Demo 回覆模式。
